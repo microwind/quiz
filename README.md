@@ -8,4 +8,13 @@
   - basic
   - puzzlement
   - confusion
+
+# ECMAScript6 Speciality Quiz
+  - basic
+  - puzzlement
+  - confusion
+
 # Java ProgrammingHow can you expliter the reseason Quiz
+  - basic
+  - puzzlement
+  - confusion
