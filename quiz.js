@@ -48,6 +48,8 @@ function foo() {
     var a = b = 1;
     console.log(a, b);
 }
+foo();
+console.log(typeof a, b);
 // 连续赋值要注意，等号操作自左至右单独解释，此时b为全局变量。
 
 /* # variable hoisting */
@@ -67,6 +69,17 @@ var num2 = 2;
 // 变量提升，num1与num2因为在函数内部声明，故初始value都是undefined。
 // num1执行时为条件判断为undefined，故没有执行赋值。
 // num2执行时条件为true，故赋值成功。
+
+// expressive declaration and defined declaration
+foo();
+function foo() {
+    console.log(foo);
+}
+foo2();
+var foo2 = function foo2() {
+    console.log(typeof foo2);
+};
+// 表达式声明的函数按照顺序变量顺序先后执行赋值
 
 /* # function defined first */
 var a;
@@ -395,22 +408,31 @@ C.getName = A.B.getName;
 C.getName();
 // 函数的this指向调用它的对象，C.getName执行时，this指向C
 
-// change outer property
+// variable of scope
 function outer() {
-    this.alias = 'A';
+    this.var1 = 'A1';
+    var var2 = 'A2';
     function inner() {
-        this.alias = 'B';
+        this.var1 = 'B1';
+        var2 = 'B2';
+        function subInner() {
+            var3 = 'B3';
+            console.log('step3:', this.var1, typeof var2, typeof var3);
+        }
+        console.log('step2:', this.var1, typeof var2, typeof var3);
+        subInner();
     }
+    console.log('step1:', this.var1, typeof var2, typeof var3);
     inner();
-    console.log(this.alias);
 }
-console.log('before:', this.alias);
+console.log('before:', this.var1, typeof var2, typeof var3);
 outer();
-console.log('after', this.alias);
+console.log('after', this.var1, typeof var2, typeof var3);
 // 内部影响到外部属性，此例中this均指向全局this
 // before打印的是初始全局this(浏览器环境下是window)的name
-// 执行outer后，先改为A，再改为B，注意函数调用与实例化时构造函数执行不同
-// 可以试下将outer()改为new outer();
+// 执行outer后，先改为this.var1，再改为局部变量var2
+// 执行subInner时改变的var3是全局变量，注意函数调用与实例化时构造函数执行不同
+// 可以试下将outer()改为new outer()或者将var3加上var
 
 /* # async execution */
 var num = 0;
@@ -695,7 +717,7 @@ console.log(Child.prototype.isPrototypeOf(c3),
 /* ##################### */
 
 /*******************************************
-# type convertion
+# type conversion
 ********************************************/
 data type:
 primitive type: string number boolean undefined null symbol (new in ECMAScript 6) 
@@ -748,51 +770,6 @@ NaN instanceof Object;
 // 对象、数组、函数等的原型链都指向Object，因此都是Object的实例
 // null/undefined等原始数据类型并非来自Object，NaN是种特殊number，表示非数字
 
-/* # type judgement */
-if ( !undefined
-  && !null
-  && !0
-  && !NaN
-  && !''
-) {
-  console.log('true');
-} else { console.log('false');}
-// 这几项取非时都为true，但它们之间都不全等(===)，原因类型并不相同。
-// 其中除了null == undefined, 0 == ''，其他也并不相等。
-
-// && operator
-function foo(a) {
-    return a && -1;
-}
-console.log(foo(true), foo(false), foo(0), foo(-1));
-// -1 与 false， && 操作符左真返回右，否则返回左，这种写法不建议使用
-
-// && with || operator
-function foo(a) {
-    return a && 'aa' || 'bb';
-}
-console.log(foo(true), foo(false), foo(-1), foo(0));
-// && 混合 ||使用，这种写法更容易迷惑
-// && 是左真返右，|| 是左真返回左，由真返右
-// 同级操作符自左往右确定优先级
-function foo(a) {
-    return a || 'aa' && 'bb';
-}
-console.log(foo(true), foo(false), foo(-1), foo(0));
-
-function foo(a, b) {
-    return a || b && 'aa';
-}
-console.log(foo(true, true), foo(true, false), foo(false, 1), foo(false, 0));
-// 这几个是逻辑思维推理。或是左返真，且与之相反
-
-// && operator
-function foo(a) {
-    return a && -1 || 'a' && 'b';
-}
-console.log(foo(true), foo(false), foo('0'), foo(0));
-// 与之前几个道题类似，注意'0'与0的区别
-
 // primitive value type conversion
 var a = 1, b = 'str', c = null, d = undefined, e = false, f = NaN, g = Symbol("1");
 console.log(String(a), String(b), String(c), String(d), String(e), String(f), String(g));
@@ -815,7 +792,7 @@ console.log(Object(a), Object(b), Object(c), Object(d), Object(e), Object(f), Ob
 // 注意与直接构造器赋值的区别，比如Object('abc') == String('abc')为true，而Object('abc') === String('abc')为false
 // 虽然typeof undefined得到undefined，undefined同样通过Object实例化
 
-// object type convertion
+// object type conversion
 var g = [1, 'str'], h = { a: 'a', '2': 2}, i = new Date(),
         j = function() { var a = 'a'},
         k = new RegExp(/\d+/), l = new Boolean(false);
@@ -840,7 +817,7 @@ console.log(Object(g), Object(h), Object(i), Object(j), Object(k), Object(l));
 // [1, "str"] Object {2: 2, a: "a"} Thu Oct 20 xxx () { var a = 'a'} /\d+/ Boolean {[[PrimitiveValue]]: false}
 // 对象转对象，按照对象类型调用对应的对象实例化，时间与正则转换为字符串内容
 
-// number value convertion
+// number value conversion
 var a = 1, b = -1, c = 0, d = 3.1415926, e = Infinity, f = -Infinity, g = -0;
 console.log(String(a), String(b), String(c), String(d), String(e), String(f), String(g));
 // "1" "-1" "0" "3.1415926" "Infinity" "-Infinity" "0"
@@ -904,7 +881,11 @@ a.name == b.name;
 String.prototype.getSelf = function() { return this; }
 var a = 'str';
 var b = a.getSelf();
-console.log(a === b, a.valueOf() === b.valueOf(), typeof a, typeof b);
+console.log(
+    a === b, 
+    a.valueOf() === b.valueOf(), 
+    typeof a, typeof b
+    );
 // 字符串直接量是自身的value，但如果通过原型方法获得this时，这时获得的实例对象
 // 因此直接量与对象不全等，而valueOf获得的直接量，从类型上判断就能看出不一样
 
@@ -965,6 +946,51 @@ Boolean(false) instanceof Boolean;
 new String('abc') instanceof String;
 new Number(123) instanceof Number;
 // 原始数据类型并非来自对象的实例化，构造函数进行的初始化得到的原始类型
+
+/* # type judgement */
+if ( !undefined
+  && !null
+  && !0
+  && !NaN
+  && !''
+) {
+  console.log('true');
+} else { console.log('false');}
+// 这几项取非时都为true，但它们之间都不全等(===)，原因类型并不相同。
+// 其中除了null == undefined, 0 == ''，其他也并不相等。
+
+// && operator
+function foo(a) {
+    return a && -1;
+}
+console.log(foo(true), foo(false), foo(0), foo(-1));
+// -1 与 false， && 操作符左真返回右，否则返回左，这种写法不建议使用
+
+// && with || operator
+function foo(a) {
+    return a && 'aa' || 'bb';
+}
+console.log(foo(true), foo(false), foo(-1), foo(0));
+// && 混合 ||使用，这种写法更容易迷惑
+// && 是左真返右，|| 是左真返回左，由真返右
+// 同级操作符自左往右确定优先级
+function foo(a) {
+    return a || 'aa' && 'bb';
+}
+console.log(foo(true), foo(false), foo(-1), foo(0));
+
+function foo(a, b) {
+    return a || b && 'aa';
+}
+console.log(foo(true, true), foo(true, false), foo(false, 1), foo(false, 0));
+// 这几个是逻辑思维推理。或是左返真，且与之相反
+
+// && operator
+function foo(a) {
+    return a && -1 || 'a' && 'b';
+}
+console.log(foo(true), foo(false), foo('0'), foo(0));
+// 与之前几个道题类似，注意'0'与0的区别
 
 /*******************************************
 # assignment operation
@@ -1037,24 +1063,6 @@ console.log(![], ~[], +[], -[]);
 console.log(!new Date(), ~new Date(), +new Date(), -new Date());
 // 日期操作会换算为数字再计算
 
-// date and zero 
-new Date() - 0;
-new Date() + 0;
-0 + +new Date();
-// 注意这里+-操作的区别，日期-会换算数字，如果2个加号，会先让日期转数字再计算
-
-console.log(!'-1', ~'-1', +'-1', -'-1');
-// 操作符号在前会转为数字
-
-/* # boolean convertion */
-new Boolean(false) == false;
-new Boolean(false) == 0;
-var bool = new Boolean(false);
-if(bool) {  console.log('true'); } else { console.log('false');}
-if(0) {  console.log('true'); } else { console.log('false');}
-// new Boolean(false)返回的是空的对象，严格比较就不等于false
-// 对象返回值不是原始value，而是一个对象，因此逻辑判断并非取原始value比较，因此为真
-
 // # operator with function
 !function(){ console.log('!'); }              // false
 !function(){ console.log('!'); }();           // true
@@ -1068,10 +1076,23 @@ if(0) {  console.log('true'); } else { console.log('false');}
 // 逻辑取值时对象为true
 // ~按位非，对象相当于0，因此获得值是-1，字符串转整数时可以使用，但不建议
 
-// float number
-~1.2;   ~~1.2;   ~(1.2);  ~~(1.2);
-console.log(~1.2, ~~1.2, ~(1.2), ~~(1.2));
-// 按位取反，双波浪线就可以类似Math.floor
+// date and zero 
+new Date() - 0;
+new Date() + 0;
+0 + +new Date();
+// 注意这里+-操作的区别，日期-会换算数字，如果2个加号，会先让日期转数字再计算
+
+console.log(!'-1', ~'-1', +'-1', -'-1');
+// 操作符号在前会转为数字
+
+/* # boolean conversion */
+new Boolean(false) == false;
+new Boolean(false) == 0;
+var bool = new Boolean(false);
+if(bool) {  console.log('true'); } else { console.log('false');}
+if(0) {  console.log('true'); } else { console.log('false');}
+// new Boolean(false)返回的是空的对象，严格比较就不等于false
+// 对象返回值不是原始value，而是一个对象，因此逻辑判断并非取原始value比较，因此为真
 
 // # null and undefined and boolean
 null === null;  undefined === undefined;  NaN === NaN;
@@ -1093,6 +1114,15 @@ false === 0;  !false === 0;  !true === 0;  true === !0;
 // parseInt(string, radix); 接受2个参数。第1个是成员，第2个是基数，而map传入的是下标
 // parseInt('5.1', 5); parseInt('5.1', 10); 基数在2-36之间，2、8、10、16之外的要求基数大于数值。
 // parseFloat(string); 接受1个参数，就是循环中的数组成员
+
+// * precision computing */
+console.log(0.2 - 0.1,  0.5 - 0.4);
+console.log(0.6 - 0.3,  0.7 - 0.4);
+console.log(0.1 + 0.1,  0.3 - 0.1);
+console.log(0.8 - 0.5,  0.5 - 0.2);
+// JS并没有对浮点数进行封装处理，浮点数与整数一样都是number类型，
+// 每个浮点数占64位，浮点数按加减乘除操作都时按二进制就可能会得到很多小数
+// 这时需要自己对这些数据进行类似4舍5入的修正，或者依靠其他类库以及后台来协助处理
 
 /* # three unary */
 var a = 1;
@@ -1151,14 +1181,28 @@ for(let item of a) {
 }
 // for-of用来遍历有迭代器对象如数组、Map、Set中的值，只是遍历成员，无下标
 
-// * precision computing */
-console.log(0.2 - 0.1,  0.5 - 0.4);
-console.log(0.6 - 0.3,  0.7 - 0.4);
-console.log(0.1 + 0.1,  0.3 - 0.1);
-console.log(0.8 - 0.5,  0.5 - 0.2);
-// JS并没有对浮点数进行封装处理，浮点数与整数一样都是number类型，
-// 每个浮点数占64位，浮点数按加减乘除操作都时按二进制就可能会得到很多小数
-// 这时需要自己对这些数据进行类似4舍5入的修正，或者依靠其他类库以及后台来协助处理
+// * array value comparison */
+var a = [0];
+var b = [1];
+console.log(a == true, b == true);
+if (a) {
+    console.log('a');
+}
+if (b) {
+    console.log('b');
+}
+// 对于数组来讲，等于比较会把value取出来比较
+// 逻辑判断时，并没有将内容取出，而是直接判断对象，此时对象都存在
+
+/* # array number value */
+[1] == [1];
+1   == [1];
+[1, 2] > [2, 1];
+[1, '2'] < [2, 1];
+// 引用用对象之间的比较都是false，因为指向空间不同
+// 数组判断时根据对象来判断
+// 当与原始书类型比较时会取出第一个value来进行对比
+// 数组><比较是按照toString()后的value进行比较
 
 /* # switchcase */
 function foo(number) {
@@ -1184,20 +1228,7 @@ foo(null);
 foo(undefined);
 // switch 会按照对象严格比较，会校验类型，new String以及Object(null)都变成object了
 
-// * array value comparison */
-var a = [0];
-var b = [1];
-console.log(a == true, b == true);
-if (a) {
-    console.log('a');
-}
-if (b) {
-    console.log('b');
-}
-// 对于数组来讲，等于比较会把value取出来比较
-// 逻辑判断时，并没有将内容取出，而是直接判断对象，此时对象都存在
-
-// number computing
+// multiple operator with number computing
 console.log(1 - + 1);
 console.log(1 - + + '1');
 console.log('1' - + + '1');
@@ -1243,22 +1274,13 @@ foo(arr);
 // 这里参数只有1个数组参数，此参数相当于arguments[0]
 // 注意区别于arguments本身，这里传递和修改的只是arr
 
-/* # array and number */
-[1] == [1];
-1   == [1];
-[1, 2] > [2, 1];
-[1, '2'] < [2, 1];
-// 引用用对象之间的比较都是false，因为指向空间不同
-// 数组判断时根据对象来判断
-// 当与原始书类型比较时会取出第一个value来进行对比
-// 数组><比较是按照toString()后的value进行比较
 
 // function length
 Function.length === new Function().length;
 // 对象本身length为1，实例化后的构造函数length为0
 (function([], undefined, {}, NaN){}).length;
 
-/* # date assign */
+/* # date declare */
 var a = new Date("2000/01/01");
 var b = new Date(2000, 01, 01);
 var a = new Date("2000/13/01");
@@ -1405,7 +1427,7 @@ a(3);
 // 递归完毕后(不再继续递归)，继续后面的执行，后面的执行有多少次函数调用就执行多少次
 // 执行的顺序是按照最近的递归调用到最初调用(自近向远)的顺序
 
-/* # assign object and change value */
+/* # assign label object and change value */
 var a = 1, foo = { a: a };
 foo: {
     a: ++a;
