@@ -990,7 +990,9 @@ function foo(a) {
     return a && -1 || 'a' && 'b';
 }
 console.log(foo(true), foo(false), foo('0'), foo(0));
-// 与之前几个道题类似，注意'0'与0的区别
+// 与之前几个道题类似，注意'0'与0的区别，0 == '0' == false, if(0)//false, if('0')//true
+// 在==比较时，一方是number或boolean时会将另一方转number比较，逻辑非则直接转型比较。
+// 如果一方是string，则先转string进行比较。
 
 /*******************************************
 # assignment operation
@@ -1058,6 +1060,10 @@ console.log(!{}, ~{}, +{}, -{});
 console.log(![], ~[], +[], -[]);
 // 加减空数组得0，原因是+-会取出数组第一项的原始值进行操作
 // 其他与普通对象一样，按位取反为-1
+[] + {} // [object object]
+{} + [] // 0
+// 原因是在+号时一般数据与对象会自己先转string然后拼接，[]也会转string取第1个值是'',
+// {},null在+时，会提前把自己按照number转型，此时+号两边都是number，故此是[]是数值操作
 
 !new Date();  ~new Date();  +new Date();  -new Date();
 console.log(!new Date(), ~new Date(), +new Date(), -new Date());
