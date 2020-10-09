@@ -80,7 +80,7 @@ querySelector必须由document对象调用，函数内部实现的时候通过th
 ```
     
 * 解释：
-已存在外部var声明的变量a，花括号内又用let声明了同名变量，此次块级作用域被let 声明的a替代，而在let之前引用变量会报错。如果将let a改为var a 不会报错，或者将a = 2放到let a = 2之后也可以。
+已存在外部var声明的变量a，花括号内又用let声明了同名变量，此次块级作用域被let 声明的a替代，而在let之前引用变量会报错。如果将let a改为var a 不会报错，或者将a = 2放到let a之后也可以。
  
 - 演示结果：
 
@@ -196,24 +196,6 @@ foo()
 
 ## 10. 词法作用域（静态作用域）
 ```js
-(function() {
-  let a = 1
-  function foo() {
-    let a = 2
-    return {
-      a: a,
-      getA() {
-        return a
-      }
-    }
-  }
-  const f = foo()
-  f.a = 3
-  if (f.getA() == f.a) {
-    console.log('equals')
-  }
-  console.log(f.getA(), f.a)
-})()
 (function() {
   let a = 1
   function foo() {
@@ -361,26 +343,6 @@ setTimeout是一种异步执行的宏任务，在当前块执行完后再执行�
 - 演示结果：
 
 ![隐式转换](./images/015.png)
-
-## 16. 浮点数问题
-```js
-(function() {
-  var result = 0.1 + 0.2
-  if (result == 0.3) {
-     console.log('true')
-  } else {
-     console.log('false')
-  }
-  console.log(result)
-})()
-```
-    
-* 解释：
-JavaScript中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用64位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。这时候可以通过toFixed或者换成字符串来比较。
- 
-- 演示结果：
-
-![隐式转换](./images/016.png)
 
 ## 16. 浮点数问题
 ```js
