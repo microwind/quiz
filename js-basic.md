@@ -1560,36 +1560,36 @@ console.log('outer:', foo.a, a);
 // lable定义并非变量声明，名称仅在label内使用，不会影响同名变量
 ```
 
-# **References**
-    The 10 Most Common Mistakes JavaScript Developers Make
-    https://www.sitepoint.com/automatic-type-conversion/
-    https://www.toptal.com/javascript/10-most-common-javascript-mistakes
-    http://javascript.ruanyifeng.com/grammar/conversion.html
-    http://web.jobbole.com/85326/
-    http://www.jianshu.com/p/668e1f998776
-    https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types
-    http://www.adequatelygood.com/Object-to-Primitive-Conversions-in-JavaScript.html
-    http://stackoverflow.com/questions/12982114/auto-type-conversion-in-javascript
-    https://www.sitepoint.com/automatic-type-conversion/
-    http://www.w3cin.com/2016/09/22/javascript-types/
-    http://www.jianshu.com/p/1e7d0ab79b9e
-    https://segmentfault.com/a/1190000003867801
-    http://www.2ality.com/2013/04/quirk-implicit-conversion.html
-    http://www.2ality.com/2012/01/object-plus-object.html
-    https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Comparison_Operators
-    https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness
-    http://rocha.la/JavaScript-bitwise-operators-in-practice
-    https://www.toptal.com/javascript/10-most-common-javascript-mistakes
+# Reference
 
-    http://javascript-puzzlers.herokuapp.com/
-    http://perfectionkills.com/javascript-quiz/
-    http://zxhfighter.github.io/blog/javascript/2013/03/14/javascript-quiz.html
-    http://bonsaiden.github.io/JavaScript-Garden/
-    http://davidshariff.com/js-quiz/
-    http://madebyknight.com/javascript-scope/
-    https://zhuanlan.zhihu.com/p/95318421
-    http://tutorialzine.com/2014/08/what-does-this-function-do/
-    http://dmitry.baranovskiy.com/post/91403200
-    https://www.nczonline.net/blog/2010/01/26/answering-baranovskiys-javascript-quiz/
-    https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md
-    https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md
+https://www.sitepoint.com/automatic-type-conversion/
+https://www.toptal.com/javascript/10-most-common-javascript-mistakes
+http://javascript.ruanyifeng.com/grammar/conversion.html
+http://web.jobbole.com/85326/
+http://www.jianshu.com/p/668e1f998776
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types
+http://www.adequatelygood.com/Object-to-Primitive-Conversions-in-JavaScript.html
+http://stackoverflow.com/questions/12982114/auto-type-conversion-in-javascript
+https://www.sitepoint.com/automatic-type-conversion/
+http://www.w3cin.com/2016/09/22/javascript-types/
+http://www.jianshu.com/p/1e7d0ab79b9e
+https://segmentfault.com/a/1190000003867801
+http://www.2ality.com/2013/04/quirk-implicit-conversion.html
+http://www.2ality.com/2012/01/object-plus-object.html
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Comparison_Operators
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness
+http://rocha.la/JavaScript-bitwise-operators-in-practice
+https://www.toptal.com/javascript/10-most-common-javascript-mistakes
+
+http://javascript-puzzlers.herokuapp.com/
+http://perfectionkills.com/javascript-quiz/
+http://zxhfighter.github.io/blog/javascript/2013/03/14/javascript-quiz.html
+http://bonsaiden.github.io/JavaScript-Garden/
+http://davidshariff.com/js-quiz/
+http://madebyknight.com/javascript-scope/
+https://zhuanlan.zhihu.com/p/95318421
+http://tutorialzine.com/2014/08/what-does-this-function-do/
+http://dmitry.baranovskiy.com/post/91403200
+https://www.nczonline.net/blog/2010/01/26/answering-baranovskiys-javascript-quiz/
+https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch1.md
+https://github.com/lydiahallie/javascript-questions/blob/master/zh-CN/README-zh_CN.md

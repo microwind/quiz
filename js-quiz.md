@@ -466,15 +466,15 @@ map接受两个参数， 回调函数 callback和回调函数的this，当前cal
 
 # Reference
 
-  https://github.com/lydiahallie/javascript-questions#readme
-  https://typeofnan.dev/10-javascript-quiz-questions-and-answers/
-  https://maxwellito.github.io/es6-quiz-slides/#/
-  https://www.reddit.com/r/programming/comments/7qv7pu/javascript_can_a_1_a_2_a3_ever_evaluate_to_true/
-  http://javascript-puzzlers.herokuapp.com/
-  https://juejin.cn/post/6844903619758669831
-  http://perfectionkills.com/javascript-quiz/
-  https://www.w3schools.com/js/js_quiz.asp
-  https://www.javatpoint.com/javascript-quiz
+https://github.com/lydiahallie/javascript-questions#readme
+https://typeofnan.dev/10-javascript-quiz-questions-and-answers/
+https://maxwellito.github.io/es6-quiz-slides/#/
+https://www.reddit.com/r/programming/comments/7qv7pu/javascript_can_a_1_a_2_a3_ever_evaluate_to_true/
+http://javascript-puzzlers.herokuapp.com/
+https://juejin.cn/post/6844903619758669831
+http://perfectionkills.com/javascript-quiz/
+https://www.w3schools.com/js/js_quiz.asp
+https://www.javatpoint.com/javascript-quiz
   
 
 
