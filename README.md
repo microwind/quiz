@@ -8,10 +8,18 @@
   - basic [语言特性](./javascript/js-basic.md)
   - puzzlement [易错题与意外bug](./javascript/js-quiz.md) 
 
-# Java ProgrammingHow can you expliter the reseason Quiz
+# Java Programming Quiz
   - basic
   - puzzlement
 
-# Python Speciality Quiz
+# Dart Programming Quiz
+  - basic
+  - puzzlement
+
+# Python Programming Quiz
+  - basic
+  - puzzlement
+
+# Go Programming Quiz
   - basic
   - puzzlement
