@@ -30,7 +30,8 @@ JS作用域分为全局作用域与函数级作用域两级，外部不能访问
 
 # strict严格模式下的函数提升与作用域
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/244e7c8c54f249dc85bd5a1022addb4f~tplv-k3u1fbpfcp-zoom-1.image)[]()
+![image](https://user-images.githubusercontent.com/1499003/175876415-86b1130c-9845-4835-976f-f0e1c3608507.png)
+
 
 在严格模式下，函数变量声明也不提升了，还得严格遵循块级作用域。
 
