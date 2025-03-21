@@ -62,7 +62,7 @@ class A {
     }
     /*
      * public String show(B object) {
-     *   return ("A and B"); 
+     * return ("A and B");
      * }
      */
 }
@@ -89,3 +89,19 @@ class C extends B {
 // D继承B
 class D extends B {
 }
+
+/**
+ * 运行结果：
+ * 1--A and A
+ * 2--A and A
+ * 3--A and D
+ * 4--B and A
+ * 5--B and A
+ * 6--A and D
+ * 7--B and B
+ * 8--B and B
+ * 9--A and D
+ * 10--B and A
+ */
+
+// 详见：https://github.com/microwind/design-patterns/tree/main/programming-paradigm/object-oriented-programming/polymorphism
