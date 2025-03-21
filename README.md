@@ -8,13 +8,13 @@
   - basic
   - puzzlement
 
-# JavaScript Programming Quiz
-  - basic [语言特性](./javascript/js-basic.md)
+# [JavaScript Programming Quiz](./javascript)
+  - basic [基础](./javascript/js-basic.md)
   - puzzlement [易错题与意外bug](./javascript/js-quiz.md) 
 
-# Java Programming Quiz
-  - basic
-  - puzzlement
+# [Java Programming Quiz](./java)
+  - basic [基础](./java/java-quiz.md)
+  - puzzlement 
 
 # Python Programming Quiz
   - basic
